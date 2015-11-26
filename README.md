@@ -1,2 +1,7 @@
-# rapport-client
-PHP client for the Venditan Rapport
+# PHP client for Venditan Rapport
+
+http://www.venditan.com/rapport
+
+## Install with Composer ##
+
+`venditan/rapport-client`

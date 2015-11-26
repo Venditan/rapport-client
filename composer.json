@@ -1,0 +1,12 @@
+{
+    "name": "venditan/rapport-client",
+    "type": "library",
+    "description": "Rapport",
+    "keywords": ["venditan","rapport","sms","docnet"],
+    "homepage": "http://www.venditan.com/rapport",
+    "autoload": {
+        "classmap": ["src/"],
+        "psr-4": {"\\Venditan\\Rapport\\": "src/Venditan/Rapport/"}
+    },
+    "include-path": ["src/"]
+}
