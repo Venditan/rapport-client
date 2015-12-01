@@ -4,6 +4,9 @@
     "description": "Rapport",
     "keywords": ["venditan","rapport","sms","docnet"],
     "homepage": "http://www.venditan.com/rapport",
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
     "autoload": {
         "classmap": ["src/"],
         "psr-4": {"\\Venditan\\Rapport\\": "src/Venditan/Rapport/"}
