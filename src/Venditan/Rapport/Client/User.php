@@ -95,7 +95,7 @@ class User
         if(null !== $this->str_email) {
             $obj_data->email = $this->str_email;
         }
-        if(null !== $this->str_imobile) {
+        if(null !== $this->str_mobile) {
             $obj_data->mobile = $this->str_mobile;
         }
         return $obj_data;
