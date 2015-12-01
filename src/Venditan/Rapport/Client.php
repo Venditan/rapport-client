@@ -102,8 +102,11 @@ class Client
      *
      * @return object
      */
-    private function compile()
+    public function compile()
     {
+        if(null === $this->str_event) {
+            throw new \RuntimeException("Event cannot be null");
+        }
         $obj_payload = (object)[
             'client' => $this->str_client,
             'key' => $this->str_api_key,
