@@ -7,6 +7,7 @@
 
 namespace Venditan\Rapport;
 
+use Venditan\Rapport\Client\Message;
 use Venditan\Rapport\Client\Transaction;
 use Venditan\Rapport\Client\User;
 
@@ -23,6 +24,8 @@ class Client
     private $obj_user = null;
 
     private $obj_txn = null;
+
+    private $obj_message = null;
 
     /**
      * Set the client ane api key
@@ -84,6 +87,19 @@ class Client
             $this->obj_txn = new Transaction();
         }
         return $this->obj_txn;
+    }
+
+    /**
+     * Add and return a MEssage component
+     *
+     * @return Message
+     */
+    public function addMEssage()
+    {
+        if(null === $this->obj_message) {
+            $this->obj_message = new Message();
+        }
+        return $this->obj_message;
     }
 
     /**
