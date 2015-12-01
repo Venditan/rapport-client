@@ -18,8 +18,21 @@ $obj_client = new \Venditan\Rapport\Client('company', 'api-key');
 $obj_client->addUser()->id('1955')->name('Marty')->email('marty@mcfly.com')->mobile('07019551985');
 
 // Set-up the transaction
-$obj_client->addTransaction()->id('2015');
+$obj_client->addTransaction()->id('2015')->courier('Western Union')->tracking('ELB1885');
 
 // Set the type of event and publish
 $obj_client->event('order_placed')->send();
+```
+
+## Service Message ##
+
+```php
+// Create the client with your supplied client id and api key
+$obj_client = new \Venditan\Rapport\Client('company', 'api-key');
+
+// Set a service message
+$obj_client->addMessage()->title('Order Update')->body('Hi Marty. I am safe in 1885.')->from('ELB');
+
+// Set the type of event and publish
+$obj_client->event('service_message')->send();
 ```
