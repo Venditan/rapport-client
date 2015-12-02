@@ -94,7 +94,7 @@ class Client
      *
      * @return Message
      */
-    public function addMEssage()
+    public function addMessage()
     {
         if(null === $this->obj_message) {
             $this->obj_message = new Message();
@@ -133,6 +133,9 @@ class Client
         }
         if($this->obj_txn instanceof Transaction) {
             $obj_payload->transaction = $this->obj_txn->compile();
+        }
+        if($this->obj_message instanceof Message) {
+            $obj_payload->message = $this->obj_message->compile();
         }
         return $obj_payload;
     }
