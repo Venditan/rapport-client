@@ -126,7 +126,7 @@ class Client
         $obj_payload = (object)[
             'client' => $this->str_client,
             'key' => $this->str_api_key,
-            'event' => $this->str_event
+            'type' => $this->str_event
         ];
         if($this->obj_user instanceof User) {
             $obj_payload->user = $this->obj_user->compile();
@@ -150,7 +150,6 @@ class Client
     {
         $arr_opts = [
             'ssl' => [
-                'verify_peer' => true,
                 'CN_match' => '*.appspot.com',
                 'disable_compression' => true
             ],

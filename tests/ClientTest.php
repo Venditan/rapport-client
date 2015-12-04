@@ -19,7 +19,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)[
             'client' => $str_client,
             'key' => $str_api_key,
-            'event' => $str_event
+            'type' => $str_event
         ], $obj_data);
     }
 
@@ -37,7 +37,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((object)[
             'client' => $str_client,
             'key' => $str_api_key,
-            'event' => $str_event,
+            'type' => $str_event,
             'message' => (object)[
                 'title' => $str_title,
                 'body' => $str_body,
