@@ -33,6 +33,9 @@ $obj_client = new \Venditan\Rapport\Client('company', 'api-key');
 // Add and configure the target recipient/user
 $obj_client->addUser()->id('1955')->name('Marty')->email('marty@mcfly.com')->mobile('07019551985');
 
+// Set-up the transaction (optional)
+$obj_client->addTransaction()->id('2015');
+
 // Set a service message
 $obj_client->addMessage()->title('Order Update')->body('Hi Marty. I am safe in 1885.')->from('ELB');
 
