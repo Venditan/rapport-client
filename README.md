@@ -49,6 +49,7 @@ $obj_client->event('service_message')->send();
 ## Retrieve Thread Messages ##
 
 ```php
+// Retrieve any thread for Order "2015"
 $obj_client->getThreadForTransaction('2015');
 ```
 
@@ -56,13 +57,13 @@ The response will be a stdClass object decoded from the following JSON
 
 ```json
 {
-    id: "oid-2015",
-    topic: "Order 2015",
-    messages: [
+    "id": "oid-2015",
+    "topic": "Order 2015",
+    "messages": [
         {
-            title: "Order Accepted",
-            message: "Thank you for your order.",
-            created: "2015-01-01 12:00:00"
+            "title": "Order Accepted",
+            "message": "Thank you for your order.",
+            "created": "2015-01-01 12:00:00"
         }
     ]
 }
