@@ -110,7 +110,7 @@ class Client
     public function send()
     {
         // Stream post the data
-        $this->evaluateResponse($this->httpPost($this->compile()));
+        $this->evaluateResponse($this->httpPost($this->str_endpoint . '/event', $this->compile()));
     }
 
     /**
@@ -141,12 +141,37 @@ class Client
     }
 
     /**
+     * Retrieve the full thread for a particular transaction
+     *
+     * @param $str_txn_id
+     * @return object|bool
+     */
+    public function getThreadForTransaction($str_txn_id)
+    {
+        $arr_response_data = $this->httpPost($this->str_endpoint . '/thread/detail', (object)[
+            'client' => $this->str_client,
+            'key' => $this->str_api_key,
+            'transaction' => $str_txn_id
+        ]);
+        try {
+            $obj_thread = $this->evaluateResponse($arr_response_data);
+            return $obj_thread;
+        } catch (\UnexpectedValueException $obj_ex) {
+            if(404 == $obj_ex->getCode()) {
+                return false;
+            }
+            throw $obj_ex;
+        }
+    }
+
+    /**
      * Send the data off
      *
-     * @param object $obj_payload
+     * @param $str_endpoint
+     * @param $obj_payload
      * @return array
      */
-    private function httpPost($obj_payload)
+    private function httpPost($str_endpoint, $obj_payload)
     {
         $arr_opts = [
             'ssl' => [
@@ -163,7 +188,7 @@ class Client
 
         // Make the request
         $obj_context = stream_context_create($arr_opts);
-        $str_response = file_get_contents($this->str_endpoint . '/event', false, $obj_context);
+        $str_response = file_get_contents($str_endpoint, false, $obj_context);
         return [
             'headers' => $http_response_header,
             'response' => trim($str_response)
@@ -171,24 +196,30 @@ class Client
     }
 
     /**
-     * Process any response data
+     * Process any response data, return the JSON decoded payload
      *
      * @param array $arr_response
-     * @return bool
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     * @return object
      */
     private function evaluateResponse(array $arr_response)
     {
         $arr_headers = $arr_response['headers'];
         if(!is_array($arr_headers)) {
-            throw new \RuntimeException("No HTTP response headers");
+            throw new \UnexpectedValueException("No HTTP response headers");
+        }
+        if(strpos($arr_headers[0], '404') > 0) {
+            throw new \UnexpectedValueException("Resource not found [{$arr_headers[0]}]", 404);
         }
         if(strpos($arr_headers[0], '200 OK') < 1) {
-            throw new \RuntimeException("Not a 200 OK response [{$arr_headers[0]}]");
+            throw new \UnexpectedValueException("Not a 200 OK response [{$arr_headers[0]}]");
         }
         $obj_response = json_decode($arr_response['response']);
         if (!is_object($obj_response)) {
-            throw new \RuntimeException("Could not decode JSON response");
+            throw new \UnexpectedValueException("Could not decode JSON response");
         }
+        return $obj_response;
     }
 
 }
