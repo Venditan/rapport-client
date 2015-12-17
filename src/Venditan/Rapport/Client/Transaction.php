@@ -19,6 +19,15 @@ class Transaction
     
     private $str_courier = null;
 
+    private $str_delivery_address = null;
+
+    private $str_notes = null;
+
+    /**
+     * @var LineItem[]
+     */
+    private $arr_lines = [];
+
     /**
      * Set the user id
      *
@@ -56,6 +65,42 @@ class Transaction
     }
 
     /**
+     * Set the delivery address description
+     *
+     * @param $str_address
+     * @return $this
+     */
+    public function deliverTo($str_address)
+    {
+        $this->str_delivery_address = $str_address;
+        return $this;
+    }
+
+    /**
+     * Set any order notes
+     *
+     * @param $str_notes
+     * @return $this
+     */
+    public function notes($str_notes)
+    {
+        $this->str_notes = $str_notes;
+        return $this;
+    }
+
+    /**
+     * Create and return a LineItem
+     *
+     * @return LineItem
+     */
+    public function addLine()
+    {
+        $obj_line = new LineItem();
+        $this->arr_lines[] = $obj_line;
+        return $obj_line;
+    }
+
+    /**
      * Compile the data for transmission
      *
      * @return \stdClass
@@ -71,6 +116,18 @@ class Transaction
         }
         if(null !== $this->str_courier) {
             $obj_data->courier = $this->str_courier;
+        }
+        if(null !== $this->str_notes) {
+            $obj_data->notes = $this->str_notes;
+        }
+        if(null !== $this->str_delivery_address) {
+            $obj_data->deliver_to = $this->str_delivery_address;
+        }
+        if(count($this->arr_lines) > 0) {
+            $obj_data->lines = [];
+            foreach($this->arr_lines as $obj_line) {
+                $obj_data->lines[] = $obj_line->compile();
+            }
         }
         return $obj_data;
     }

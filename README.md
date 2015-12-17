@@ -30,6 +30,25 @@ $obj_client->addTransaction()->id('2015')->courier('Western Union')->tracking('E
 $obj_client->event('order_dispatched')->send();
 ```
 
+## Order Details ##
+
+It is possible to provide order details (lines, delivery address, notes) as well.
+
+```php
+// Set-up the transaction
+$obj_txn = $obj_client->addTransaction();
+$obj_txn->id('2015')->courier('Western Union')->tracking('ELB1885');
+
+// Address
+$obj_txn->deliverTo('123 Street, Town, County, POST CODE');
+
+// Notes
+$obj_txn->notes('Will be delivered by hand');
+
+// Line. Only the description is required
+$obj_txn->addLine()->describe('Paul Smith Shirt')->quantity(1)->image('http://a.b.c/d.jpg')->attribute('Colour', 'Red')->attribute('Size', '12');
+```
+
 ## Service Message ##
 
 ```php
