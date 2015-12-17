@@ -34,10 +34,11 @@ $obj_client->event('order_dispatched')->send();
 
 It is possible to provide order details (lines, delivery address, notes) as well.
 
+This would normally only be provided once, with the `order_placed` event.
+
 ```php
 // Set-up the transaction
-$obj_txn = $obj_client->addTransaction();
-$obj_txn->id('2015')->courier('Western Union')->tracking('ELB1885');
+$obj_txn = $obj_client->addTransaction()->id('2015');
 
 // Address
 $obj_txn->deliverTo('123 Street, Town, County, POST CODE');
