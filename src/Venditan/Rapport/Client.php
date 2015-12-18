@@ -148,13 +148,12 @@ class Client
      */
     public function getThreadForTransaction($str_txn_id)
     {
-        $arr_response_data = $this->httpPost($this->str_endpoint . '/thread/detail', (object)[
-            'client' => $this->str_client,
-            'key' => $this->str_api_key,
-            'transaction' => $str_txn_id
-        ]);
         try {
-            $obj_thread = $this->evaluateResponse($arr_response_data);
+            $obj_thread = $this->evaluateResponse($this->httpPost($this->str_endpoint . '/thread/detail', (object)[
+                'client' => $this->str_client,
+                'key' => $this->str_api_key,
+                'transaction' => $str_txn_id
+            ]));
             return $obj_thread;
         } catch (\UnexpectedValueException $obj_ex) {
             if(404 == $obj_ex->getCode()) {
@@ -162,6 +161,20 @@ class Client
             }
             throw $obj_ex;
         }
+    }
+
+    /**
+     * Get account usage information
+     *
+     * @return object
+     */
+    public function getAccountUsage()
+    {
+        $obj_thread = $this->evaluateResponse($this->httpPost($this->str_endpoint . '/account/usage', (object)[
+            'client' => $this->str_client,
+            'key' => $this->str_api_key
+        ]));
+        return $obj_thread;
     }
 
     /**

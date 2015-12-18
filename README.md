@@ -73,7 +73,7 @@ $obj_client->event('service_message')->send();
 $obj_client->getThreadForTransaction('2015');
 ```
 
-The response will be a stdClass object decoded from the following JSON
+The response will be a stdClass object decoded from the following JSON structure
 
 ```json
 {
@@ -84,6 +84,41 @@ The response will be a stdClass object decoded from the following JSON
             "title": "Order Accepted",
             "message": "Thank you for your order.",
             "created": "2015-01-01 12:00:00"
+        }
+    ]
+}
+```
+
+## Account Usage ##
+
+```php
+// Retrieve basic account usage data
+$obj_client->getAccountUsage();
+```
+
+The response will be a stdClass object decoded from the following JSON structure. 
+
+More usage statistics may be added in future.
+
+```json
+{
+    "this_month": {
+        "name": "December 2015",
+        "year": 2015,
+        "month": 12,
+        "sms": 199
+    },
+    "recent_months": [
+        {
+            "name": "October 2015",
+            "year": 2015,
+            "month": 10,
+            "sms": 117
+        }, {
+            "name": "November 2015",
+            "year": 2015,
+            "month": 11,
+            "sms": 435
         }
     ]
 }
