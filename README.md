@@ -2,6 +2,15 @@
 
 http://www.venditan.com/rapport
 
+## Table of Contents ##
+
+- [Installation](#install-with-composer)
+- [Order Dispatch](#order-dispatch)
+- [Order Details](#order-details)
+- [Service Message](#service-message)
+- [Retrieve Threads, Messages](#retrieve-thread-messages)
+- [Usage](#account-usage)
+
 ## Install with Composer ##
 
 ```bash
