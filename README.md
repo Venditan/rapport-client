@@ -88,6 +88,8 @@ The response will be a stdClass object decoded from the following JSON structure
 {
     "id": "oid-2015",
     "topic": "Order 2015",
+    "last_read": "2015-01-01 12:00:00",
+    "last_read_device": "Mobile, iPhone",
     "messages": [
         {
             "title": "Order Accepted",
@@ -123,12 +125,8 @@ More usage statistics may be added in future.
             "year": 2015,
             "month": 10,
             "sms": 117
-        }, {
-            "name": "November 2015",
-            "year": 2015,
-            "month": 11,
-            "sms": 435
-        }
+        },
+        ...
     ]
 }
 ```
