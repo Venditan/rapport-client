@@ -43,7 +43,7 @@ $obj_client->event('order_dispatched')->send();
 
 It is possible to provide order details (lines, delivery address, notes) as well.
 
-This would normally only be provided once, with the `order_placed` event.
+This would normally only be provided once, using the `order_detail` event.
 
 ```php
 // Set-up the transaction
@@ -55,8 +55,11 @@ $obj_txn->deliverTo('123 Street, Town, County, POST CODE');
 // Notes
 $obj_txn->notes('Will be delivered by hand');
 
-// Line. Only the description is required
-$obj_txn->addLine()->describe('Paul Smith Shirt')->quantity(1)->image('http://a.b.c/d.jpg')->attribute('Colour', 'Red')->attribute('Size', '12');
+// Line. Only the description is required, other fields are optional
+$obj_txn->addLine()->describe('Paul Smith Shirt')->quantity(1)->image('https://a.b.c/d.jpg')->attribute('Colour', 'Red')->attribute('Size', '12');
+
+// Set the type of event and publish
+$obj_client->event('order_detail')->send();
 ```
 
 ## Service Message ##
