@@ -80,9 +80,18 @@ $obj_client->event('service_message')->send();
 
 ## Retrieve Thread Messages ##
 
+Threads exist for either transaction (order) contexts or just plain user (customer) contexts.
+
 ```php
 // Retrieve any thread for Order "2015"
 $obj_client->getThreadForTransaction('2015');
+```
+
+OR
+
+```php
+// Retrieve any thread for User "12345"
+$obj_client->getThreadForUser('12345');
 ```
 
 The response will be a stdClass object decoded from the following JSON structure

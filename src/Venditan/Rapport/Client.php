@@ -148,11 +148,34 @@ class Client
      */
     public function getThreadForTransaction($str_txn_id)
     {
+        return $this->getThreadForContext('transaction', $str_txn_id);
+    }
+
+    /**
+     * Retrieve the full thread for a particular user
+     *
+     * @param $str_user_id
+     * @return object|bool
+     */
+    public function getThreadForUser($str_user_id)
+    {
+        return $this->getThreadForContext('user', $str_user_id);
+    }
+
+    /**
+     * Retrieve the full thread for the given context
+     *
+     * @param $str_field
+     * @param $str_id
+     * @return bool|object
+     */
+    private function getThreadForContext($str_field, $str_id)
+    {
         try {
             $obj_thread = $this->evaluateResponse($this->httpPost($this->str_endpoint . '/thread/detail', (object)[
                 'client' => $this->str_client,
                 'key' => $this->str_api_key,
-                'transaction' => $str_txn_id
+                $str_field => $str_id
             ]));
             return $obj_thread;
         } catch (\UnexpectedValueException $obj_ex) {
@@ -162,6 +185,8 @@ class Client
             throw $obj_ex;
         }
     }
+
+
 
     /**
      * Get account usage information
