@@ -16,19 +16,22 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         $str_tracking = "ABC123";
         $str_notes = 'Delivery by hand';
         $str_address = '123 Street, Town, County';
+        $str_estimated_delivery = '28th April 2016';
         $obj_txn
             ->id($str_id)
             ->courier($str_courier)
             ->tracking($str_tracking)
             ->notes($str_notes)
-            ->deliverTo($str_address);
+            ->deliverTo($str_address)
+            ->estimatedDelivery($str_estimated_delivery);
         $obj_data = $obj_txn->compile();
         $this->assertEquals($obj_data, (object)[
             'order_id' => $str_id,
             'tracking' => $str_tracking,
             'courier' => $str_courier,
             'notes' => $str_notes,
-            'deliver_to' => $str_address
+            'deliver_to' => $str_address,
+            'estimated_delivery' => $str_estimated_delivery
         ]);
     }
 

@@ -21,6 +21,8 @@ class Transaction
 
     private $str_delivery_address = null;
 
+    private $str_estimated_delivery = null;
+
     private $str_notes = null;
 
     /**
@@ -77,6 +79,18 @@ class Transaction
     }
 
     /**
+     * Set the estimated delivery date
+     *
+     * @param $str_estimated_delivery
+     * @return $this
+     */
+    public function estimatedDelivery($str_estimated_delivery)
+    {
+        $this->str_estimated_delivery = $str_estimated_delivery;
+        return $this;
+    }
+
+    /**
      * Set any order notes
      *
      * @param $str_notes
@@ -122,6 +136,9 @@ class Transaction
         }
         if(null !== $this->str_delivery_address) {
             $obj_data->deliver_to = $this->str_delivery_address;
+        }
+        if(null !== $this->str_estimated_delivery) {
+            $obj_data->estimated_delivery = $this->str_estimated_delivery;
         }
         if(count($this->arr_lines) > 0) {
             $obj_data->lines = [];
