@@ -62,6 +62,23 @@ $obj_txn->addLine()->describe('Paul Smith Shirt')->quantity(1)->image('https://a
 $obj_client->event('order_detail')->send();
 ```
 
+## Estimated Delivery Dates ##
+
+If your event templates support an estimated delivery date this can be sent along with your request.
+
+The date will be included as provided so please send the date as you would like it to be displayed.
+
+```php
+// Add and configure the target recipient/user
+$obj_client->addUser()->id('1955')->name('Marty')->email('marty@mcfly.com')->mobile('07019551985');
+
+// Set-up the transaction
+$obj_client->addTransaction()->id('2015')->estimatedDelivery('10th May 2016');
+
+// Set the type of event and publish
+$obj_client->event('stock_arrived')->send();
+```
+
 ## Service Message ##
 
 ```php
