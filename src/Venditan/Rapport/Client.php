@@ -226,9 +226,17 @@ class Client
 
         // Make the request
         $obj_context = stream_context_create($arr_opts);
+        if (!function_exists('http_get_last_response_headers')) {
+            // PHP 8.5 warns when compiling a reference to the old header variable.
+            require_once __DIR__ . '/legacy_http_post.php';
+            return legacyHttpPost($str_endpoint, $obj_context);
+        }
+
+        // A failed request must not return headers from an earlier request.
+        http_clear_last_response_headers();
         $str_response = file_get_contents($str_endpoint, false, $obj_context);
         return [
-            'headers' => $http_response_header,
+            'headers' => http_get_last_response_headers(),
             'response' => trim($str_response)
         ];
     }
